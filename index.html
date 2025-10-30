@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bošnjačka kultura — Tamna (zlatni tonovi) • 20 sekcija + modali</title>
+<style>
+:root{
+  --bg-1:#0b0f12; --bg-2:#0f1316; --card:#0f1518;
+  --text:#e9e6e1; --muted:#bfb7aa;
+  --gold:#c9a84a; --gold-2:#d9b65a;
+  --radius:14px; --shadow:0 8px 28px rgba(0,0,0,.55);
+  --accent:#c9a84a;
+  scroll-behavior:smooth;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI", Inter, Roboto, system-ui, Arial;background:linear-gradient(180deg,var(--bg-1),var(--bg-2));color:var(--text);line-height:1.65}
+img{max-width:100%;display:block}
+
+/* NAV */
+/* ===== Navigacija (tamna + zlatni akcenti) ===== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(15, 18, 20, 0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(201,168,74,0.25);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.45);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LOGO — slika cijela, bez kockice */
+.nav-logo img {
+  height: 50px; /* možeš mijenjati po želji */
+  width: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.nav-logo img:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* MENU */
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+.nav-menu li a {
+  text-decoration: none;
+  color: var(--muted, #bfb7aa);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 8px 10px;
+  border-radius: 6px;
+  transition: color 0.25s ease, background 0.25s ease;
+}
+.nav-menu li a:hover {
+  color: var(--gold, #c9a84a);
+  background: rgba(201,168,74,0.1);
+}
+
+/* HAMBURGER */
+#menuToggle {
+  display: none;
+  font-size: 1.8rem;
+  color: var(--gold, #c9a84a);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* MOBILNI PRIKAZ */
+@media (max-width: 850px) {
+  #menuToggle {
+    display: block;
+  }
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background: rgba(15, 18, 20, 0.98);
+    border: 1px solid rgba(201,168,74,0.25);
+    border-radius: 12px;
+    flex-direction: column;
+    width: 220px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+    padding: 10px;
+    animation: slideIn 0.3s ease forwards;
+  }
+  .nav-menu.open {
+    display: flex;
+  }
+  .nav-menu li {
+    text-align: right;
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+
+
+/* HERO */
+header{padding:56px 18px;text-align:center;border-bottom:2px solid #ac8f3b33;
+  background:linear-gradient(135deg,#1a1f24,#12161a)}
+header h1{margin:0 0 8px;font-size:2rem}
+header p{margin:0;color:var(--muted);font-weight:600}
+
+/* LAYOUT */
+.container{max-width:1100px;margin:36px auto;padding:0 18px}
+.grid{display:grid;grid-template-columns:1fr 320px;gap:22px}
+@media(max-width:1000px){.grid{grid-template-columns:1fr}}
+
+/* Cards */
+section{
+  background:#0f1518;border:1px solid #ffffff12;border-radius:var(--radius);padding:18px;margin-bottom:26px;
+  box-shadow:var(--shadow);transition:transform .2s ease, box-shadow .2s ease, opacity .6s ease, translate .6s ease;
+  opacity:0; translate:0 18px;
+}
+section.visible{opacity:1; translate:0 0}
+section:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.65)}
+h2{margin:0 0 10px;color:var(--gold);font-size:1.15rem}
+.excerpt{color:var(--muted)}
+.card-img{width:100%;max-height:420px;object-fit:cover;border-radius:12px;margin:12px 0;border:1px solid #ffffff10}
+.btn{
+  background:linear-gradient(90deg,#c9a84a29,#d9b65a18);
+  border:1px solid #c9a84a55;color:var(--gold);padding:9px 14px;border-radius:999px;cursor:pointer;font-weight:700
+}
+.btn:hover{background:#c9a84a33}
+
+/* Sidebar */
+aside{position:sticky;top:84px;height:calc(100vh - 100px);padding:14px;border:1px solid #ffffff12;border-radius:12px;background:#0f1518}
+aside h3{margin:0 0 8px;color:var(--muted)}
+.toc a{display:block;text-decoration:none;color:var(--muted);padding:8px;border-radius:8px}
+.toc a:hover{color:var(--gold);background:#ffffff0d}
+
+/* MODAL (po sekciji) */
+.modal{
+  display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.85);
+  align-items:center;justify-content:center;padding:20px
+}
+.modal.open{display:flex}
+.modal-content{
+  width:100%;max-width:980px;max-height:90vh;background:#0f1518;border:1px solid #c9a84a33;
+  border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 40px 120px rgba(0,0,0,.7);
+  animation:pop .22s ease-out
+}
+@keyframes pop{from{scale:.98;opacity:0}to{scale:1;opacity:1}}
+.modal-header{padding:14px 16px;border-bottom:1px solid #c9a84a33;display:flex;gap:10px;align-items:center}
+.modal-header h3{margin:0;color:var(--gold);font-size:1.15rem}
+.modal-close{margin-left:auto;background:transparent;border:0;color:var(--gold);font-size:22px;cursor:pointer}
+.modal-body{padding:16px;overflow-y:auto;max-height:74vh}
+.modal-body::-webkit-scrollbar{width:8px}
+.modal-body::-webkit-scrollbar-thumb{background:#c9a84a44;border-radius:4px}
+.modal-body img{width:100%;border-radius:10px;margin:10px 0}
+.modal-body p{white-space:pre-line;color:var(--text)}
+
+/* ===== FOOTER ===== */
+.site-footer {
+  background: linear-gradient(180deg, #0e1013, #14171b);
+  border-top: 1px solid rgba(201,168,74,0.25);
+  padding: 50px 20px 40px;
+  text-align: center;
+  color: var(--muted, #bfb7aa);
+  position: relative;
+  overflow: hidden;
+}
+
+/* zlatni “sjaj” efekat u pozadini */
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(201,168,74,0.15) 0%, transparent 70%);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.footer-inner {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.site-footer h2 {
+  color: var(--gold, #c9a84a);
+  margin-bottom: 12px;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 10px rgba(201,168,74,0.3);
+}
+
+.site-footer p {
+  font-size: 0.95rem;
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+.site-footer p:last-child {
+  color: var(--gold, #c9a84a);
+  font-weight: 600;
+  margin-top: 20px;
+  border-top: 1px solid rgba(201,168,74,0.15);
+  padding-top: 10px;
+}
+
+@media (max-width: 600px) {
+  .site-footer {
+    padding: 40px 15px 30px;
+  }
+  .site-footer h2 {
+    font-size: 1.2rem;
+  }
+  .site-footer p {
+    font-size: 0.9rem;
+  }
+}
+
+
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.image-gallery .img-wrap {
+  text-align: center;
+}
+
+.image-gallery img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid rgba(201,168,74,0.25);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.45);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.image-gallery img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.6);
+}
+
+/* ✨ Stil za opis slike (span) */
+.image-gallery span {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+
+</style>
+
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar">
+    <div class="nav-container">
+      <a href="https://fzm.me/v/index.php/naslovnal" class="nav-logo">
+        <img src="fond.png" alt="Fondacija Zajedničkih Memorija">
+      </a>
+  
+      <button id="menuToggle" aria-label="Otvori meni">☰</button>
+  
+      <ul id="mainMenu" class="nav-menu">
+        <li><a href="#s1">Religija</a></li>
+        <li><a href="#s2">Selver</a></li>
+        <li><a href="#s3">Suveniri</a></li>
+        <li><a href="#s4">Biblioteka</a></li>
+        <li><a href="#s6">Književnost</a></li>
+        <li><a href="#s7">Tradicija</a></li>
+        <li><a href="#s11">Historija</a></li>
+        <li><a href="#s19">Amina</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  
+
+<!-- HERO -->
+<header>
+  <h1>Uticaj tradicije na savremeni život Bošnjaka u Crnoj Gori</h1>
+  <p>Tradicija i dalje ima snažan uticaj na savremeni život Bošnjaka u Crnoj Gori. Uprkos modernim tokovima, običaji, vjera i porodične vrijednosti ostaju temelj identiteta.</p>
+
+</header>
+
+<div class="container">
+  <div class="grid">
+    <main>
+
+      <!-- 1 -->
+      <section id="s1">
+        <h2>1. Religija kao važan segment bošnjačkog naroda</h2>
+        <img class="card-img" src="slika1.jpg"">
+        <p class="excerpt">Vjera, džamije i zajednica kao temelj identiteta.</p>
+        <button class="btn" data-open="m1">Više</button>
+      </section>
+      <div id="m1" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt1" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt1">Religija kao važan segment bošnjačkog naroda</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika1.jpg" alt="">
+            <span><i>Biševska džamija u Rožajama </i></span>
+            <p>Tretirajući značaj projekta I njegovih ciljeva ova tema se smatra jako važnom za obradu. Religija je od suštinskog značaja za identitet Bošnjaka, kako na individualnom, tako i na kolektivnom nivou. Islam, kao vjera koju većina Bošnjaka praktikuje, duboko je ukorijenjen u njihovoj tradiciji, kulturi i svakodnevnom životu. </p>
+            <p>Kroz istoriju, religija je bila ključna u očuvanju identiteta Bošnjaka, naročito u periodima političkih i društvenih izazova, kada su vjerske institucije bile jedan od najvažnijih stubova njihove zajednice. Islam među Bošnjacima nije samo religija, već i način života koji oblikuje njihove moralne vrijednosti, etičke norme i svakodnevne prakse. Vjera podstiče na poštovanje porodice, uzajamnu pomoć i solidarnost, te duboko ukorenjene principe ljubavi, tolerancije i međusobnog uvažavanja. Ove vrijednosti se prenose sa generacije na generaciju, kako kroz direktno učenje i obrede, tako i kroz svakodnevnu interakciju unutar zajednice.</p>
+            <p>Takođe, džamije, mesdžidi i drugi vjerski objekti imaju posebnu ulogu u životu Bošnjaka. Oni nisu samo mjesta za molitvu, već i centri društvenog života, obrazovanja i okupljanja. Religijski praznici poput Bajrama, te aktivnosti kao što su predavanja, iftari i humanitarne akcije, pružaju priliku za dodatno povezivanje članova zajednice i jačanje međusobnih odnosa. Pored toga, religija ima važnu ulogu u očuvanju kulturnog naslijeđa Bošnjaka, jer mnoge tradicionalne manifestacije, običaji i kulturne prakse imaju vjersku osnovu. Islam je tako oblikovao jezik, umjetnost, književnost, muziku i mnoge druge aspekte bošnjačke kulture.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <section id="s2">
+        <h2>2. Akademski slikar Selver Kardović promoter bošnjačke kulture i umjetnosti na platnu</h2>
+        <img class="card-img" src="slika2.jpg" alt="">
+        <p class="excerpt">Savremeni izraz i tradicijski motivi na platnu.</p>
+        <button class="btn" data-open="m2">Više</button>
+      </section>
+      <div id="m2" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt2" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt2">Akademski slikar Selver Kardović</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika2.jpg" alt="">
+            <span><i>Umjetnička slika Kardovića, ulje na platnu </i></span>
+            <p>Kardović Selver je rodjen 1990. godine u Rožajama. Srednju likovnu školu „Petar Lubarda završio je na Cetinju. Diplomirao je na Odsjeku slikarstvo,Fakulteta likovnih umjetnosti na Internacionalnom univerzitetu u Novom Pazaru, u klasi profesora Mehmeda Slezovića. Kadrović slika figure ili djelove ljudske figure u prostoru, ali i apstraktne forme i oblike. Portrete i figure slika slobodnim potezima sa detaljima tradicije I kulturnog nasljeđa. Kardović je imao deset samostalnih izložbi u Crnoj Gori, Kosovu i Makedoniji.</p>
+            <p>Izlagao na preko 50 kolektivnih izložbi u Crnoj Gori, Bosni i Hercegovinii Turskoj.</p>
+            <p>Učesnik je brojnih likovnih kolonija i ART simpozijuma u zemlji i inostranstvu. Živi i radi u Rožajama.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <section id="s3">
+        <h2>3. Istaknuti suveniri bošnjačkog naroda</h2>
+        <img class="card-img" src="slika3.jpg" alt="">
+        <p class="excerpt">Ćilimi, vez, bakar, drvorez — simboli naslijeđa.</p>
+        <button class="btn" data-open="m3">Više</button>
+      </section>
+      <div id="m3" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt3" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt3">Istaknuti suveniri bošnjačkog naroda</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika3.jpg" alt="">
+            <span><i>Fiksni stari telefon  </i></span>
+            <p>Bošnjačka kulturna baština je bogata i raznolika, a suveniri su važan način na koji se ta baština prenosi na buduće generacije, kao i način na koji posjetitelji mogu nositi dio bošnjačke tradicije sa sobom. Suveniri bošnjačkog naroda obuhvataju širok spektar rukotvorina i predmeta, od kojih svaki ima svoj specifičan značaj i povezan je sa tradicijom, običajima i načinom života. Neki od najistaknutijih suvenira bošnjačkog naroda uključuju: Ćilimi i tepihe, Šamije i marame, Sefardi (džezve) i turska kafa, Džamijski elementi – rukotvorine od drveta i metala, Zlatarska i srebrna umjetnost, tradicionalne nošnje, ručni radovi i keramika, književna djela i kaligrafija itd…</p>
+            <div class="image-gallery">
+                <div class="img-wrap">
+                  <img src="slikaaa3.jpg" alt="Bošnjački amblem - grb">
+                  <span><i>Bošnjački amblem - grb</i></span>
+                </div>
+                <div class="img-wrap">
+                  <img src="slikaa3.jpg" alt="Tradicionalna odjeća">
+                  
+                </div>
+              </div>
+              
+              
+        </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <section id="s4">
+        <h2>4. Bošnjačka biblioteka</h2>
+        <img class="card-img" src="slika4.jpg" alt="">
+        <p class="excerpt">Fond, arhiva i kulturne aktivnosti.</p>
+        <button class="btn" data-open="m4">Više</button>
+      </section>
+      <div id="m4" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt4" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt4">Bošnjačka biblioteka</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika4.jpg" alt="">
+            <span><i>Bošnjačka biblioteka – BNVCG</i></span>
+            <p>Bošnjačka biblioteka u Rožajama je važna institucija koja čuva kulturnu baštinu, literaturu i tradiciju bošnjačkog naroda u ovom dijelu Crne Gore. Smještena u Rožajama, gdje Bošnjaci čine većinu stanovništva, biblioteka ima ključnu ulogu u očuvanju identiteta, jezika, kulture i vjerskih vrijednosti bošnjačkog naroda. Ova biblioteka nije samo mjesto na kojem se čuvaju knjige i drugi pisani materijali, već i centar kulturnih aktivnosti i obrazovanja. Kroz različite programe, predavanja, promocije knjiga, i druge događaje, biblioteka postaje važan centar za obrazovanje i kulturno povezivanje zajednice.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <section id="s5">
+        <h2>5. Doprinos biblioteke ka očuva nju bošnjačke tradicije</h2>
+        <img class="card-img" src="slika5.jpg" alt="">
+        <p class="excerpt">Radionice, promocije, projekti očuvanja jezika i kulture.</p>
+        <button class="btn" data-open="m5">Više</button>
+      </section>
+      <div id="m5" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt5" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt5">Doprinos biblioteke ka očuvanju bošnjačke tradicije</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika5.jpg" alt="">
+            <span><i>Državna I bošnjačka zastava u Biblioteci </i></span>
+            <p>Bošnjačka biblioteka u Rožajama ne samo da čuva književnu baštinu, već je i mjesto na kojem se održavaju manifestacije posvećene bošnjačkoj tradiciji, vjeri i običajima. To je važan faktor u jačanju identiteta bošnjačkog naroda, posebno u savremenim vremenima, kada su izazovi globalizacije i homogenizacije društava sve prisutniji. Biblioteka takođe ima ulogu u promovisanju međusobnog razumijevanja među različitim narodima i vjerama, jer kultura i literatura uvijek služe kao most za dijalog. Za mlade generacije, Bošnjačka biblioteka nudi mogućnosti za obrazovanje, usmjeravanje ka kulturnim i naučnim istraživanjima, te razvoj kritičkog mišljenja. Mnogi mladi ljudi u Rožajama koriste biblioteku kao prostor za učenje, istraživanje i kreativni rad, što doprinosi daljoj afirmaciji obrazovanja i kulture među mladima.</p>
+        <br>
+        <p>Bošnjačka biblioteka u Rožajama stoga ima višestruki značaj: čuva, njeguje i promoviše bošnjačku književnost i kulturu, postajući nezaobilazni centar za sve one koji žele saznati više o bogatoj baštini ovog naroda, te učestvovati u očuvanju kulturnog identiteta.</p>  
+        </div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <section id="s6">
+        <h2>6. Važnost bošnjačke litaretaure i književnosti</h2>
+        <img class="card-img" src="slika6.jpg" alt="">
+        <p class="excerpt">Pisana riječ kao čuvar identiteta i pamćenja.</p>
+        <button class="btn" data-open="m6">Više</button>
+      </section>
+      <div id="m6" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt6" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt6">Važnost bošnjačke literature i književnosti</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika6.jpg" alt="">
+            <span><i>Elvir Duranović bošnjački pisac </i></span>
+            <p>Bošnjačka literatura ima bogatu i raznoliku tradiciju koja se razvijala kroz istoriju, oblikovana kulturnim, društvenim i vjerskim okolnostima Bošnjaka, naročito kroz njihove odnose sa susjednim narodima, kao i s islamom i osmanskom vladavinom. Kroz različite epohe, bošnjačka književnost se oblikovala i kroz pisanje na arapskom jeziku, i na turskom, pa sve do savremenog pisanja na bosanskom jeziku. Ova literatura ima i poseban značaj za očuvanje identiteta, kulture i tradicije ovog naroda. Bošnjačka literatura i književnost imaju izuzetno važnu ulogu u očuvanju i afirmaciji kulturnog identiteta bošnjačkog naroda, kao i u oblikovanju njegove društvene i istorijske svijesti. Kroz književnost, Bošnjaci su tokom istorije prenosili svoje vrednosti, tradicije, religijske poglede, ali i suočavali se sa izazovima, traumama i društvenim promenama. Ova književnost je ključni element za razumevanje bošnjačkog naroda, njegovih vrednosti i kulture, ali i za stvaranje mostova razumijevanja među narodima na Balkanu i šire.</p>
+            <p>Bošnjačka književnost je neizostavan segment kulturnog identiteta Bošnjaka. Kroz pjesme, priče, eseje i romane, autori su prenosili običaje, vjerovanja, tradicije, te jezik i istoriju bošnjačkog naroda. Često je književnost bila sredstvo očuvanja specifičnosti naroda u uslovima političkih promjena, rata i društvenih turbulencija. Ona je omogućila da narod preživi i očuva svoje kolektivno pamćenje kroz literarne forme, te da se poveže sa svojom prošlošću i istorijskim nasljeđem.
+
+            </p>
+        </div>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <section id="s7">
+        <h2>7. Uticaj tradicije na život Bošnjaka</h2>
+        <img class="card-img" src="slika7.jpg" alt="">
+        <p class="excerpt">Običaji, porodične vrijednosti i društveni obrasci.</p>
+        <button class="btn" data-open="m7">Više</button>
+      </section>
+      <div id="m7" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt7" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt7">Uticaj tradicije na život Bošnjaka</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika7.jpg" alt="">
+            <span><i>Obilježavanja Dana bošnjačke nacionalne zastave u Rožajama </i></span>
+            <p>Uticaj tradicije na savremeni život Bošnjaka u Crnoj Gori ima značajnu ulogu u oblikovanju identiteta, kulture i svakodnevnog života ovog naroda. Tradicija, koja uključuje običaje, vjerovanja, jezike, umjetnost i društvene norme, ostaje snažno prisutna uprkos savremenim izazovima i globalizaciji. U Crnoj Gori, Bošnjaci su najbrojniji u opštinama na sjeveru, ali i u drugim djelovima zemlje, i suočavaju se sa procesima modernizacije koji utiču na očuvanje njihovih kulturnih vrijednosti.  </p>
+            <p>Nema sumnje da je ovo ključna tema koja u savremeno dobra utiče I pojašnjava život ovog naroda korz uticaj savremnih trendova današnjice. U tekstu ispod ističemo nekoliko ključnih aspekata uticaja tradicije na savremeni život Bošnjaka u Crnoj Gori:</p>
+            <p>Islam je značajan dio bošnjačkog identiteta, a vjerovanje i religiozne prakse imaju veliki uticaj na svakodnevni život. Tradicionalni vjerski običaji, kao što su post, molitve, islamski praznici (Ramazan, Bajram) i vjerski obredi (npr. svadbeni obredi, rođenje, smrt), ostaju duboko ukorijenjeni u zajednici. Iako se pojavljuju novi trendovi i manja religioznost među mladima, vjerski običaji i dalje predstavljaju stub zajednice.</p>
+            <p>Porodica je u bošnjačkoj tradiciji veoma važna, a poštovanje starijih, solidarnost i međusobna pomoć među članovima porodice ostaju ključne vrednosti. Ove vrijednosti se prenose sa generacije na generaciju i često čine osnovu međuljudskih odnosa u zajednici. Iako savremeni život donosi promjene, ove porodične vrednosti se i dalje održavaju, iako mladi u većim gradovima mogu biti pod uticajem modernijih životnih stilova.</p>
+            <p>Jezik je ključni element očuvanja identiteta Bošnjaka. Upotreba bosanskog jezika u svakodnevnom životu, kao i u obrazovnim institucijama, medijima i kulturi, ima važnu ulogu u očuvanju tradicije. Međutim, savremeni pritisci, poput globalizacije, mogu uticati na smanjenje upotrebe maternjeg jezika, naročito među mlađim generacijama koje mogu biti pod većim uticajem crnogorskog ili srpskog jezika. Kultura, kroz muziku, plesove, narodne pjesme i jela, takođe čini važan dio svakodnevnog života.</p>
+            <p>Tradicionalni običaji, poput svadbenih ceremonija, običaja vezanih za rođenje, braka i smrt, ostaju važan dio života Bošnjaka. Takođe, festivali koji proslavljaju narodnu muziku, plesove, umetnost i kulinarske specijalitete imaju veliki značaj. Neki od tradicionalnih festivala, poput manifestacija vezanih za islamske praznike ili kulturnih događanja u kojima se promoviše bošnjačka tradicija, i dalje se održavaju u Crnoj Gori.</p>
+            <p>Savremeni život Bošnjaka u Crnoj Gori nije bez izazova. Globalizacija, uticaj novih tehnologija i promena u društvenim normama utiču na omladinu, koja se suočava s problemima identiteta i stresa u uslovima brzih društvenih promena. Uprkos tome, mnogi Bošnjaci se trude da očuvaju ravnotežu između tradicije i savremenog života, te pokušavaju da adaptiraju svoje običaje i vrednosti u skladu s modernim društvom.</p>
+            <p>Migracije, naročito u zemljama Zapadne Evrope, dovode do promene u životnim stilovima, ali i očuvanju tradicije kroz dijasporu. Mnogi Bošnjaci koji žive u inostranstvu i dalje čuvaju običaje, jezik i religiju, a te tradicije se potom prenose na nove generacije, što takođe ima uticaj na svakodnevni život u Crnoj Gori.</p>
+        </div>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <section id="s8">
+        <h2>8. Islamska zajednica u Crnoj Gori – vjerska instuticija Bošnjaka</h2>
+        <img class="card-img" src="slika8.jpg" alt="">
+        <p class="excerpt">Institucionalni okvir vjerskog života.</p>
+        <button class="btn" data-open="m8">Više</button>
+      </section>
+      <div id="m8" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt8" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt8">Islamska zajednica u Crnoj Gori</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika8.jpg" alt="">
+            <span><i>Nacionalna zastava Bošnjaka  </i></span>
+            <p>Organizovani život muslimana u današnjoj Crnoj Gori počeo je sa osmanskom vladavinom. U Crnoj Gori živi oko 20% stanovništva islamske vjere. Sjedište Islamske zajednice u Crnoj Gori nalazi se u Podgorici. Islamska zajednice u svome sastavu ima i medresu „Mehmed Fatih”, koja se nalazi u Tuzima, a koja ima još istureno žensko odjeljenje u Rožajama. Većinu savremenih Bošnjaka čine deklarativni muslimani, dok se islam sve više praktikuje od 1990. godine, te se izgradio veliki broj džamija, skoro u svakom mjestu gdje žive muslimani. U osmanlijskom periodu upravljanje nad vjerskim objektima i imovinom, kao i sa vjerskim službama u džamijama i medresama, vršila je upravna vlast pod vođstvom sultana koji je bio vrhovni carski i vjerski suveren. Prestankom njegove vlasti 1878. godine poslije Berlinskog kongresa, odnosno 1912/13. poslije Balkanskog rata u Crnoj Gori se uspostavlja vlast koja nije islamska. Prvi koji je došao na čelo Islamske zajednice u Crnoj Gori bio je hadži Salih-efendija Huli, iz Ulcinja, rodom iz Skadra. Njega je Kralj Nikola 1878. godine, uz saglasnost šejhul-islama iz Carigrada, postavio za muftiju muslimana u Crnoj Gori, sa sjedištem uprave u Ulcinju, davši mu ”punovažnu vlast da sudi muslimanima po šerijatu onako kako je to bilo u turski vakat”. Muftija Huli je napustio Crnu Goru 1883. godine. Drugi muftija koji dolazi na čelu Islamske zajednice u Crnoj Gori, je carigradski muderis Hadži Mustafa Hilmi-efendija, rodom iz Tikveša, Bugarska, koga je postavio Visoki Mešihat iz Carigrada. Njegovo postavljenje je uslijedilo na zahtjev Kralja Nikole 1887. godine, ali je i ovaj muftija napustio Crnu Goru, vrativši se u Carigrad. Treći po redu muftija bio je Murteza efendija Karađuzović, rođen u Baru. Na ovu dužnost je postavljen 1912. godine. Sjedište muftijstva prešlo je iz Podgorice u Stari Bar. Odlukom Kraljevine Srba, Hrvata i Slovenaca, 1922. godine, muftija Karađuzović je penzionisan, a muftijstvo je prenešeno u Beograd. Poslije Drugog svjetskog rata prvi predsjednik Islamskog Starješinstva za Crnu Goru čije je sjedište najprije bilo na Cetinju, a onda u Titogradu, bio je Husein ef. Redžepagić, imam iz Plava, u periodu od 1947. do 1959. godine. Zatim je za predsjednika Starješinstva Islamske zajednice izabran hadži Šukrija ef. Bakalović iz Ulcinja. Na ovoj dužnosti je ostao do 1975. godine kada je i umro. Prema odredbama Ustava Islamske zajednice u SFR Jugoslaviji iz 1968. godine na zasijedanju Vrhovnog Sabora Islamske zajednice u SFRJ, održanom 24. maja 1976. godine, za predsjednika Starješinstva Islamske zajednice u Socijalističkoj Republici Crnoj Gori izabran je hadži Idris ef. Demirović, dotadašnji imam i vjersko-prosvjetni referent Odbora Islamske zajednice u Starom Baru, koji je ovu dužnost obavljao do 2003. godine, kada se povukao iz službe, a za novog reisa izabran je hadži Rifat ef. Fejzić iz Rožaja. Prestankom funkcionisanja jedinstvene organizacije Islamske zajednice u SFR Jugoslaviji i pravnog dejstva njenog Ustava, raspadom dotadašnje državne zajednice, Sabor Islamske zajednice u Crnoj Gori donosi 1994. godine svoj Ustav kojim potvrđuje kontinuitet organizacije Islamske zajednice u Crnoj Gori u pravnim i organizacionim poslovima, kakav je imala i ranijim ustavima cjelovite Islamske zajednice, zadržavajući duhovno jedinstvo sa činiocima te zajednice Organi Islamske zajednice su: Medžlis Islamske zajednice (ranije Odbor islamske zajednice), Sabor islamske zajednice, Mešihat Islamske zajednice (ranije Starješinstvo). U organe Islamske zajednice Crne Gore je i reis IZ-e, prema odredbama ovog Ustava. Službenici Islamske zajednici su: muftija, glavni imam, imam, hatib, vaiz, muallim/ma i mujezin. Vakufska imovina nije vraćena ni poslije skoro 35 godina višepartijskog sistema; vjeronauka nije uvedena kao fakultativni predmet u školama, a Islamska zajednica nema stabilne izvore finansiranja iz državnog budžeta, dok je islamofobija prisutna u medijima. Džamija je muslimanska bogomolja, mjesto klanjanja, zajedničke molitve muslimana. </p>   
+            <p>Najčešće je centralni dio u obliku kocke, na čijem vrhu je jedna ili više kupola, ili četvorosvodni krov. Mihrab je mjesto za imama koji predvodi namaz – molitvu, i nalazi se na zidnoj površini u pravcu Kabe u Meki. Mihrabi su dekorisani plastičnim ukrasima različitog oblika ili jednostavni bez ikakvih ukrasa i natpisa. Ukrasi u mihrabima su uvijek bojeni različitim bojama. U posljednje vrijeme neki mihrabi se oblažu keramičkim pločicama ili duborezom. Skoro sve džamije imaju mahfil - terasu na stubovima iznad prostora za namaz molitvu, sa ogradom i mjestom za mujezina. Mahfil služi kao pomoćni prostor za vrijeme molitvi petkom, tokom ramazana i bajrama, uglavnom za žene. Minber je stepenasto postolje postavljeno desno od mihraba sa kojeg se imam obraća vjernicima za vrijeme džume i bajram namaza. U monumentalnim džamijama je od kamena i bogato ukrašen, u manjim džamijama je drveni. Ćurs je postolje napravljeno od drveta, lijevo od mihraba postavljeno u uglu. Sastoji se od podijuma za sjedenje, ograde, nekoliko stepenica i postolja za knjige. Ćurs služi kao predavaonica. Tavanica kod starijih džamija uglavnom je izvedena od dasaka. Postoje i plafoni čija je tavanica ukrašena. Uglavnom se na ulaznoj strani džamije postave tri, najčešće četiri ili više stubova koji formiraju lučne otvore i tako formira trijem. Munara ili minaret je jedinstven arhitektonski element džamije. Sa proširenja, balkona, šerefe, muezin ezanom poziva vjernike na molitvu. Munare su u pravljene od tesanog kamena ili na krovu džamije od drveta. Kube ili kupola je pokrov džamije koji je pod uticajem osmanlijske arhitektonske tradicije građen u Sandžaku na rijetkim džamijama koje su pokrivane olovom (Husein pašina džamija u Pjevljima). Češće džamije su građene sa krovom na četiri vode koje su pokrivane šindrom, ćeramidom, a kasnije crijepom i limom. Harem ili džamijsku avliju imaju sve veće džamije. Haremi su najčešće bili ograđeni kamenim zidom. U haremima se nalaze šadrvani ili abdesthane sa više česama za vjersko čišćenje prije molitve - abdest. Česti su haremi služili i za groblje. Gasulhana su objekti za gasuljenje, odnosno kupanje umrlih muslimana. Manje gasulhane obično imaju sve džamije dok se u novije vrijeme grade veći objekti koji imaju i druge sadržaje kao što su hatarhane, hladnjače, parkinzi.</p>
+        </div>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <section id="s9">
+        <h2>9. Avdo Međedović – bošnjački pjesnik</h2>
+        <img class="card-img" src="slika9.png" alt="">
+        <p class="excerpt">Epska usmena tradicija i guslarske pjesme.</p>
+        <button class="btn" data-open="m9">Više</button>
+      </section>
+      <div id="m9" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt9" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt9">Avdo Međedović</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika9.png" alt="">
+            <span><i>Bista Avda Međedovića  </i></span>
+            <p>Avdo Međedović je rođen 1875. godine u selu Obrov kod Bijelog Polja, u Sandžaku. Najpoznatiji je bošnjački epski pjesnik i guslar. Njegova epska pjesma ‘’Ženidba Smailagić Meha’’ ima 12.311 stihova i duga je kao Iliada i Odiseja. Američki naučnik Milman Peri, istraživač i profesor sa Univerziteta Harvard iz prve polovine 20. vijeka, nazvao ga je „jugoslovenskim Homerom”. U djetinjstvu nije pohađao nikakvu školu, a nakon navršenog punoljetstva devet godina je služio u osmanskoj vojsci i za to vrijeme dobro savladao osmansko-turski jezik i u Solunu završio podoficirsku školu.</p>
+            <p>Avdo je bio musliman tihe naravi ali razvijenih vjerskih i moralnih osjećanja, što se najbolje vidi iz činjenice da je kao vojnik svega jednom bio kažnjen kada mu je jedan Anadolac opsovao din (vjeru) zbog čega ga je Avdo, ogorčen vjerskom mlitavošću anadolijskih Turaka koje je nazivao “nevjernicima” udario kundakom. Poslije povratka iz vojske životni vijek je proveo na imanju u rodnom Obrovu, radeći u porodičnoj radnji - kasapnici u Bijelom Polju. Guslarsku vještinu je učio prvo od oca Huseina, a kasnije i od drugih čuvenih guslara toga vremena: Ćor-Husa Husovića i drugih. Zahvaljujući talentu i vještini, tokom vremena je postao poznatiji guslar i narodni pjevač u kraju. Milman Peri je zabilježio tokom 1935. godine, na specijalnim aluminijumskim fonografskim pločama, 80.000 Avdovih epskih stihova. </p>
+            <div class="image-gallery"></div>
+                <div class="img-wrap">
+                  <img src="slikaa9.png" alt="Bošnjački amblem - grb">
+                  <span><i>Bošnjački amblem - grb</i></span>
+                </div>
+                <p>Na osnovu tih istraživanja profesor Peri je zasnovao modernu teoriju usmene književnosti i modernu homerologiju. Nastavljač Perijevog rada na sakupljanju epskog stvaralaštva Albert Bates Lord, također profesor na Harvardu, 1950/51, zabilježio je još 18.000 Međedovićevih stihova, kompletirajući na taj način impozantnu kolekciju od oko 100.000 stihova „sandžačkog Homera” Avda Međedovića. Repertoar Avda Međedovića sadrži 58 pjesama, a najviše ih je zabilježio Perijev pomoćnik Nikola Vujinović. Ukupan broj stihova je 44902 koji su snimljeni na pločama i 33653 koji su zabilježeni diktiranjem, prema Lordovim bilješkama Bošnjački Milman Parry, profesor Harvardskog univerziteta dr Zlatan Čolaković, inače sin velikog bošnjačkog književnika Envera Čolakovića, autora poznatog romana „Legenda o Ali-paši“ transkribovao je sa zvučnih snimaka više od 80.000 stihova bošnjačke epike harvardskog Perijevog arhiva. Avdo Međedović je umro 1953. godine potpuno nepoznat i nepriznat u svom vremenu i u svom narodu. Bošnjaci su prvi put objavili njegovu “Ženidbu Smailagić Meha” 1987. godine.</p>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <section id="s10">
+        <h2>10. Ćamil Sijarić</h2>
+        <img class="card-img" src="slika10.png" alt="">
+        <p class="excerpt">Proza Sandžaka — pejzaž i čovjek.</p>
+        <button class="btn" data-open="m10">Više</button>
+      </section>
+      <div id="m10" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt10" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt10">Ćamil Sijarić</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="images/image10.png" alt="">
+            <span><i>Bista Ćamila Sijarića u Bijelom Polju</i></span>
+            <p>Ćamil Sijarić je rođen 18. decembra 1913. godine u selu Šipovice kod Bijelog Polja u crnogorskom dijelu Sandžaka od oca Šabana i Majke Elmaze (rođ. Turković iz Dolića). Oba roditelja su mu umrla dok je još bio dječak. Osnovnu školu završava u Godijevu, nakon čega pohađa Veliku medresu kralja Aleksandra u Skoplju iz koje je isključen zbog političkog djelovanja. Gimnaziju je završio u Vranju 1936. godine, a pravo diplomirao u Beogradu, 1940. godine. Za vrijeme Drugog svjetskog rata službuje u Sarajevu, Mostaru, Bosanskoj Gradišci i Banja Luci. Za sekretara Suda narodne časti u Banjaluci izabran je 1945. godine, a zatim radi i kao novinar lista ‘‘Glas’’ i dramaturg Narodnog pozorišta u Banjaluci. U Sarajevo dolazi 1947. godine, gdje radi u redakciji lista ‘‘Pregled’’, u Glavnom odboru Narodnog fronta i redakciji ‘‘Zadrugara’’. U literalnu sekciju Radio Sarajeva dolaz 1951. godine i tu ostaje sve odlaska u penziju 1983. godine. Već kao gimnazijalac u Skoplju, Sijarić se bavi pisanjem pjesama, koje su objavljene tek 1988. godine (‘‘Lirika’’) i 1990. (‘‘Koliba na nebu’’). Njegov raskošni umjetnički dar bio je prije svega pripovjedački i na najpotpuniji način se ostvario u mnogobrojnim pričama i romanima s temama iz rodnoga Sandžaka i historije Bosne i Hercegovine i Balkana.</p>
+            <div class="image-gallery">
+                <div class="img-wrap">
+                  <img src="slikaa10.png" alt="Bošnjački amblem - grb">
+                  <span><i>Ćamilova česma u Šipovicama i biblioteka ‘‘Ćamil Sijarić’’ u Godijevu </i></span>
+                </div>
+                                <p>Dobitnik je više književnih nagrada i društvenih priznanja, a bio je redovni član Akademije nauka i umjetnosti Bosne i Hercegovine (ANU BiH) i Akademije nauka i umjetnosti Crne Gore (ANUCG). Pojedina djela Ćamila Sijarića prevedena su na ruski, bugarski, engleski, turski, albanski, poljski, francuski, njemački, estonski i mađarski jezik. Poznatija djela: “Ram bulja”, 1953. pripovjetke, “Naša snaha i momci”, pripovjetke, “Bihorci”, roman, “Kuću kućom čine lastavice”, 1962, pripovjetke, “Sablja”, 1969. pripovjetke, “Putnici na putu”, 1969. pripovjetke, “Kad djevojka spava”, 1972. pripovjetke, “Francuski pamuk”, 1980., “Priče kod vode”, 1982., “Rimski prsten”, 1985., “Miris lišća orahova”, 1991., “Konak”, roman, “Mojkovačka bitka”, roman, “Carska vojska”, roman, “Zelen prsten na vodi”, pripovjetke, “Zapis o gradovima”… U Šipovicama na lokaciji Dobra voda je po projektu arhitekte Selmana Mucevića izgrađena Ćamilova česma sa amfiteatrom. 6. decembra 1989. godine u Sarajevu je umro Ćamil Sijarić, jedan od najvećih bošnjačkih i jugoslovenskih književnika.</p>
+
+              </div>
+              <p>Dobitnik je više književnih nagrada i društvenih priznanja, a bio je redovni član Akademije nauka i umjetnosti Bosne i Hercegovine (ANU BiH) i Akademije nauka i umjetnosti Crne Gore (ANUCG). Pojedina djela Ćamila Sijarića prevedena su na ruski, bugarski, engleski, turski, albanski, poljski, francuski, njemački, estonski i mađarski jezik. Poznatija djela: “Ram bulja”, 1953. pripovjetke, “Naša snaha i momci”, pripovjetke, “Bihorci”, roman, “Kuću kućom čine lastavice”, 1962, pripovjetke, “Sablja”, 1969. pripovjetke, “Putnici na putu”, 1969. pripovjetke, “Kad djevojka spava”, 1972. pripovjetke, “Francuski pamuk”, 1980., “Priče kod vode”, 1982., “Rimski prsten”, 1985., “Miris lišća orahova”, 1991., “Konak”, roman, “Mojkovačka bitka”, roman, “Carska vojska”, roman, “Zelen prsten na vodi”, pripovjetke, “Zapis o gradovima”… U Šipovicama na lokaciji Dobra voda je po projektu arhitekte Selmana Mucevića izgrađena Ćamilova česma sa amfiteatrom. 6. decembra 1989. godine u Sarajevu je umro Ćamil Sijarić, jedan od najvećih bošnjačkih i jugoslovenskih književnika.</p>
+
+        </div>
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <section id="s11">
+        <h2>11. Pokrštavanje Bošnjaka Plava i Gusinja</h2>
+        <img class="card-img" src="slika11.png" alt="">
+        <p class="excerpt">Tragični događaji 1912–1913. i sjećanje.</p>
+        <button class="btn" data-open="m11">Više</button>
+      </section>
+      <div id="m11" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt11" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt11">Pokrštavanje Bošnjaka Plava i Gusinja</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika11.png" alt="">
+            <span><i>Spomenik šehidima u Plavu</i></span>
+            <p>Od oktobra 1912. do kraja maja 1913. godine, Bošnjaci Plava i Gusinja su se našli na vojnom udaru crnogorske vojske koja je tada bila pod komandom državnih organa Crne Gore, tačnije kralja Nikole. Tokom februara 1913. godine, na plavsko-gusinjski teren upućena je Donjo– vasojevićka brigada pod komandom brigadira Avra Cemovića, nakon čega se prema stanovnistvu pristupilo primjeni veoma teških represivnih mjera. Tada je dolazak brigade službeno objašnjen kao potreba za efikasnije razoružavanje Bošnjaka, a kasnije je započeto pokrštavanje. 5. marta 1913. godine crnogorska vojska je strijeljala 12 plavskih prvaka, nakon čega se krenulo u nasilno pokrštavanje. U navedenom periodu, prema nekim autorima nasilno je pokršteno oko 12.500 muslimana, te ubijen veći broj Bošnjaka i pljačkana imovina, jer ova dva naroda tada nijesu htjeli prihvatiti crnogorsku zastavu. Bilans žrtava, odnosno onih koji nisu htjeli pokrštavanje i odvedeni su u bukagijama na mjesto Previju kod Andrijevice, je 850 strijeljanih. 
+                Nesumnjivo je da su u Plavsko-gusinjskoj oblasti, u izrazito složenim društvenim, političkim, socijalnim i kulturnim uslovima, u periodu od 1912.-1913. godine, od strane države Crne Gore na etničkoj i vjerskoj osnovi nad civilnim stanovništvom Bošnjaka i Albanaca, izvršeni brojni zločini protiv međunarodnog prava i zločini protiv čovječnosti. U dvorištu džamije Sultanije u Plavu postavljeno je spomen-obilježje šehidima pokrštavanja 1912-13. Godine.
+                </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12 -->
+      <section id="s12">
+        <h2>12. Bošnjačko nacionalno vijeće u Crnoj Gori</h2>
+        <img class="card-img" src="slika12.png" alt="">
+        <p class="excerpt">Zastupanje, prava i kulturne politike.</p>
+        <button class="btn" data-open="m12">Više</button>
+      </section>
+      <div id="m12" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt12" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt12">Bošnjačko nacionalno vijeće u Crnoj Gori</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika12.png" alt="">
+            <span><i>Izvor: bnvcg.me</i></span>
+            <p>Bošnjačko vijeće u Crnoj Gori je krovna institucija bošnjačkog naroda koja je konstituisana 2008. godine na osnovu člana 79. Ustava Crne Gore. Bošnjačko vijeće u Crnoj Gori je predstavničko tijelo svih Bošnjaka i Bošnjakinja, institucija utemeljena na ustavnim i zakonskim rješenjima, čiji je djelokrug aktivnosti usmjeren na očuvanje nacionalnog, kulturnog, jezičkog i vjerskog identiteta bošnjačkog naroda u multietničkoj i multikulturnoj državi Crnoj Gori.
+                Prvi saziv Bošnjakog vijeća izabran je 15. marta 2008. godine koji je brojao 38 članova. Drugi saziv Bošnjačkog vijeća izabran je 7. jula 2013. godine i brojao je 34 člana. Treći saziv Bošnjačkog vijeća izabran je 22. jula 2017. godine i brojao je 26 članova i četvrti saziv Bošnjačkog vijeća izabran je 10. aprila 2021. godine i broji 24 člana. Predsjednici Bošnjačkog vijeća u Crnoj Gori su bili: Šerbo Rastoder, Osman Nurković, Mirsad Džudžević, Ejup Nurković, kojeg je nakon odlaska u penziju naslijedio njegov potpredsjednik Suljo Mustafić.
+                </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 13 -->
+      <section id="s13">
+        <h2>13. Politički život Bošnjaka u Crnoj Gori</h2>
+        <img class="card-img" src="slika13.png" alt="">
+        <p class="excerpt">Participacija u institucijama i javnom životu.</p>
+        <button class="btn" data-open="m13">Više</button>
+      </section>
+      <div id="m13" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt13" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt13">Politički život Bošnjaka u Crnoj Gori</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika13.png"">
+            <span><i>Biševska džamija u Rožajama </i></span>
+            <p>Od uvođenja višestranačkog sistema u Crnoj Gori, politički put bošnjačkog naroda bio je težak, sa više strana blokiran i u nekoliko navrata bilo je dovedeno pitanje političkog djelovanja Bošnjaka, koji su treći narod po brojnosti u državi Crnoj Gori. Početak devedesetih godina 20. vijeka i prvi parlamentarni izbori, pokazali su da bošnjački narod želi da djeluje politički organizovano. SDA Crne Gore je osnovana 7. septembra 1990. </p>
+            <p>Političko sazrijevanje Bošnjaka trajalo je godinama nakon toga. U susret obnovi crnogorske nezavisnosti, desio se ključan momenat, koji će se pokazati kao strateški veoma važan. U Rožajama je 26. februara 2006. godine spajanjem više bošnjačkih partija formirana jedinstvena Bošnjačka stranka. Za prvog predsjednika je izabran Rafet Husović koji je svojim angažovanjem i autoritetom dao značajan doprinos objedinjavanju političkih partija bošnjačkog naroda u jedinstvenu partiju Bošnjačka stranka. On je dao veliki doprinos partijskom uspjehu, kao i značajnim državnim, historijskim procesima. Svojim bogatim iskustvom znao je kako da u politici prevaziđe naizgled nepremostive razlike. Poslije preseljenja na ahiret 2021. godine, naslijedio ga je Ervin Ibrahimović, koji je prethodno bio poslanik u dva mandata. Za predsjednika Bošnjačke stranke izabran je na IV Kongresu BS, održanom 13. juna 2021. godine u Rožajama. Od osnivanja Bošnjačke stranke postepeno je bošnjački narod vraćao povjerenje u partiju koja je autentični predstavnik svog naroda. Bošnjačka stranka je podržala nezavisnost Crne Gore, vratila naziv Bošnjak i bosanski jezik u Ustav Crne Gore, radila na integraciji bošnjačkog naroda, podržala ulazak Crne Gore u NATO, a visoko u agendi je postavila i ulazak u EU. Bošnjačka stranka je članica Evropske narodne partije (EPP) što je potvrda njenog evropskog opredjeljenja. </p>
+            <p>Rast Bošnjačke stranke od izbora do izbora bio je umjeren i to je pokazatelj da je Bošnjačka stranka godinama imala stabilno biračko tijelo, ali da je vremenom, sazrijevanjem nacionalne svijesti, stranka dobijala I nove birače. Tako je na izborima 2023. godine Bošnjačka stranka ostvarila najbolji rezultat u historiji. PredvođenaErvinom Ibrahimovićem BS je osvojila 21500 glasova, odnosno šest poslaničkih mandata. To je pokazatelj da je Bošnjačka stranka za prethodnih 18 godina radila vrijedno i strpljivo, te danas više Bošnjaka glasa za Bošnjačku stranku nego za druge stranke. </p>
+        </div>
+        </div>
+      </div>
+
+      <!-- 14 -->
+      <section id="s14">
+        <h2>14. Islamska epigrafika</h2>
+        <img class="card-img" src="slika14.jpg" alt="">
+        <p class="excerpt">Natpisi na spomenicima i zgradama.</p>
+        <button class="btn" data-open="m14">Više</button>
+      </section>
+      <div id="m14" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt14" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt14">Islamska epigrafika</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika14.jpg" alt="">
+            <span><i>Unutrasnjost-Husein-pasine-dzuamije </i></span>
+            <p>Postoje muški i ženski nišani koji se razlikuju. Razlika oblika muških i ženskih nišana vrlo je upadljiva. Muški nišani su rađeni u obliku četvorougaone ili osmorougaone prizme, a nadglavni nišan uz to prelazi gore u tanki vrat i završava se isklesanim turbanom. Ženski su nišani, naprotiv, gotovo redovito pljosnati i većinom su oba jednako oblikovana i gore završena u vidu šiljastog luka. Starih nišana ima najviše na prostoru Pljevalja, Bara, Plava, Gusinja, Rožaja. Ima ih i drugdje, negdje tek po nekoliko primjeraka. Ima nišana sa ispisanim epitafima, a ima i onih bez ikakvih natpisa. Snimili smo i tri preostala šehidska nišana u Nikšiću koje treba zaštiti od uništenja. </p>
+            <p>Mezaristana ima nekoliko na prostoru plavske, gusinjske, rožajske, pljevaljske, barske, bjelopoljske i drugih opština, ima ih i u haremima nekih džamija. Na nekim nišanima posebnu vrijednost čini islamska epigrafika ispisana u prozi i stihu koja nije sistematski proučena. Nišani su ukrašeni raznim oblicima i ornamentima, čijom su ljepotom bili očarani mnogi putopisci. Ovakvi nišani se pojavljuju sve do 1912. godine, a poslije odlaska Osmanlija sa prostora Balkana, natpise pisane na staroosmanskom i arapskom jeziku zamijenili su nišani sa natpisima na latiničnom i ćiriličnom pismu. Nišani iz osmanskog perioda svojom starošću, ljepotom, dokumentovanošću i poetsko-filozofskom i historijskom vrijednošću, predstavljaju kulturnu baštinu naroda i kraja i mjesta gdje se nalaze, obavezuju i nadležne vlasti i bošnjačku zajednicu da ih sačuvaju od uništenja.</p>
+        </div>
+        </div>
+      </div>
+
+      <!-- 15 -->
+      <section id="s15">
+        <h2>15. Bošnjačke kuće i kule</h2>
+        <img class="card-img" src="slika15.png" alt="">
+        <p class="excerpt">Arhitektura doma i odbrane.</p>
+        <button class="btn" data-open="m15">Više</button>
+      </section>
+      <div id="m15" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt15" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt15">Bošnjačke kuće i kule</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika15.png" alt="">
+            <span><i>Bećiragića kula u Rožajama </i></span>
+            <p>Bošnjačke gradske kuće uglavnom su pravljene na dva sprata. Prizemlje od kamena, a gornji sprat od brvana ili od čatme. Kuće su bile pokrivane šindrom. Karakteristika tih kuća je što su u jednom dijelu kuće postojale i divanhane, uređena slično kao i musafirska soba, ali su imale i jednu vrstu balkona zvanog ćošak koji je bio nadnesen nad avlijom ili sokakom. Danas je samo mali broj takvih kuća očuvan u Rožajama, Plavu, Gusinju, Pljevljima, Staroj Varoši u Podgorici i tek po nekoliko u drugim gradovima, te prepuštene zubu vremena stare bošnjačke kuće jedinstvene arhitekture nestaju pred našim očima. Prilikom izgradnje kuće Bošnjaci su po mogućnosti, a zavisno od terena okretali kuću u jugoistočnom smjeru, prema Kabi u Meki. Bogatija domaćinstva su imala i posebnu sobu za musafire – musafirsku sobu ili musafirhanu jer je tradicija nalagala da je obaveza putniku namjerniku – gostu omogućiti konak i večeru. Musafirske sobe su posebno opremane i držane uredne i čiste. </p>
+            <p>Pokraj zida ispod prozora je postavljan minder, a uz zid na minderu su jastuci. Pokraj mindera na podu su prostirane pustećije i šiljteta. U sobama su postojali rafovi na kojima se ostavljao mushaf i drugi kitabi, zatim bakarno i drugo posuđe. Sofra se nakon upotrebe kačila na zidu. Prozori su sa spoljašnje strane imali kanate, odnosno kapake, koji su noću i tokom nevremena zatvarani, a danju otvarani. U bogatijim bošnjačkim kućama na prozorima su postavljane vezene zavjese i mušepci – rješetke od gvožđa ili drveta. Bošnjačka gradska kuća je obavezno imala hamam – kupatilo i odžak - kamin. U odžaku se ložila vatra i tako se zagrijavala soba. Nekada se na žar u odžaku postavljao i sadžak ili mangal na kome se postavljao sud za zagrijavanje vode za abdest ili za kuhanje hrane. Kuhinje – tzv. „kuće“ nisu imale tavanicu tako da je dim direktno išao u tavanski prostor, koji bi kroz otvore na krovu izlazio napolje. U bošnjačkoj kući su postojali dolapi ili dušekluci koji su bili fiksirani za brvna a u kojima se se odlagali dušeci, jorgani, jastuci, ćilimi i ostala posteljina. Djevojačka sprema, ženska odjeća i dragocjenosti čuvale su se u drvenom sanduku – sehari. </p>
+            <p>Neke gradske bošnjačke kuće bile su podijeljene na dva dijela - na selamluk i na haremluk. Selamluk je služio za boravak muških članova porodice i za musafire, a haremluk je bio ženski dio kuće gdje nijesu ulazili musafiri. Bošnjačke kuće su imale prostrane često kaldrmisane avlije koje su prema sokaku bile ograđene visokim zidovima, vodoravno položenim brvnima ili tarabama. Kapije su bile često velike, dekorisane, sa vratnicama na kojima su bile halke.</p>
+        </div>
+        </div>
+      </div>
+
+      <!-- 16 -->
+      <section id="s16">
+        <h2>16. Sahat Kule</h2>
+        <img class="card-img" src="slika16.jpg" alt="">
+        <p class="excerpt">Simboli gradova i vremena.</p>
+        <button class="btn" data-open="m16">Više</button>
+      </section>
+      <div id="m16" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt16" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt16">Sahat Kule</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika16.jpg" alt="">
+            <span><i>Sahat Kula Podgorica</i></span>
+            <p>Sahat-kule su pravljene za vrijeme vladavine Osmanlija, zbog potreba obavljanja muslimanskih vjerskih obreda, pet dnevnih namaza, pa su na kule postavljeni javni satovi. Sahat-kule su građene uglavnom sa velikim satom na jednom ili više lica, obično na sve četiri strane, kako bi veći broj stanovnika mogao čitati vrijeme. Uglavnom su pravljene nedaleko od džamija i često su bile dio većeg urbanog kompleksa koji je pored džamije takođe često imao i turbeta, hamame, šadrvane i zanatske radnje. Sahat-kula je predstavljala značajan arhitektonski objekat u klasičnoj osmanlijskoj organizaciji grada koji je označavao središte ekonomsko razvijene urbane sredine. U Crnoj Gori postoje sahat kule u Herceg Novom, Baru, Ulcinju, Podgorici i Pljevljima.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 17 -->
+      <section id="s17">
+        <h2>17. Specifičnost  bošnjačkih jela</h2>
+        <img class="card-img" src="slika17.jpg" alt="">
+        <p class="excerpt">Kuhinja, običaji i gostoprimstvo.</p>
+        <button class="btn" data-open="m17">Više</button>
+      </section>
+      <div id="m17" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt17" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt17">Specifičnost bošnjačkih jela</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika17.jpg" alt="">
+            <span><i>Halva </i></span>
+            <p>Specifičnu notu bošnjačkim jelima daju i prehrambeni običaji koji svoje izvorište imaju u islamu. Tako je savremena izvorna bošnjačka hrana dio kulturno-istorijskog nasljeđa i mješavina je autentičnih jela. Specifičnost i vrijednost bošnjačkih jela je baš u tom orijentalnom i zapadnjačkom, a i vjerskom nasljeđu. Zbog toga se danas ova kuhinja puno razlikuje od arapske, austrijske, mađarske, ali i od turske i arapske bez obzira što postoje jela koja potiču kako iz Turske i drugih kuhinja. Bošnjačka jela i dalje ostaju karakteristična, jer se prenose sa koljena na koljeno. </p>
+            <p>U kulturi ishrane, kao i prehrambenim običajima se najjasnije odražavaju tragovi različitih kultura koje su se u u sredinama gdje žive Bošnjaci najsnažnije isprepletale. Tradicionalno bošnjačko jelo može biti i izvorno ali i jelo koje je tokom istorije došlo iz druge kulture pa se u kod nas priprema na poseban i specifičan način. </p>
+            <p>U tradicionalnoj našoj kuhinji večera je glavni obrok i po obilnostima ima sličnosti sa Francuskom večerom dok je ručak manje obilato jelo. Autentični objekti u kojima se služe tradicionalna ishrana su aščinice, ćevabdžinice i buregdžinice. U tradicionalnoj bošnjačkoj kuhinji koristi se i posebno suđe. Takvi su sač, peka, dagara, pršulja, lonac, tepsija itd..</p>
+        </div>
+        </div>
+      </div>
+
+      <!-- 18 -->
+      <section id="s18">
+        <h2>18. Porodična struktura bošnjačkih familija I njihov kontekst</h2>
+        <img class="card-img" src="slika18.jpg" alt="">
+        <p class="excerpt">Porodica kao temelj društva.</p>
+        <button class="btn" data-open="m18">Više</button>
+      </section>
+      <div id="m18" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt18" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt18">Porodična struktura bošnjačkih familija i njihov kontekst</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika18.jpg" alt="">
+            <span><i>Domaćinske bošnjačke sobe, mjesto okupljanja </i></span>
+            <p>Uzumijući u obbzir ovu temu kao veoma značajnu za opstanak porodice kao stuba društva analizirali smo strukturu bošnjačkih porodica. Struktura bošnjačkih porodica ima duboko utkane tradicije koje su se razvijale kroz istorijske i kulturne procese, a iako su se tokom vremena mijenjale, mnoge osnovne karakteristike ostale su prisutne u savremenom životu. U osnovi, bošnjačke porodice često imaju specifične osobitosti u pogledu porodičnih uloga, međusobnih odnosa i organizacije.</p>
+            <p>Tradicija patrijarhalne porodice bila je vrlo izražena među Bošnjacima, posebno u ruralnim područjima. U ovoj strukturi, uloga muža ili oca je dominantna, dok žene obavljaju domaćinske poslove i brinu o djeci. Otac porodice bio je glavna figura koja donosi ključne odluke i upravlja resursima. Iako se patrijarhalni sistem polako menja, u mnogim zajednicama i dalje postoji snažan uticaj ovih vrednosti, naročito među starijim generacijama i u ruralnim područjima.  Iako je tradicionalno uloga žene bila usmerena na domaćinske poslove, brigu o djeci i održavanje porodičnih vrijednosti, žene u bošnjačkim porodicama su kroz vreme sticale veća prava, obrazovanje i mogućnosti. Danas žene imaju značajniju ulogu u društvenom životu, kao i u ekonomiji, a sve više žena postaje zaposlene i ostvaruje karijere. Ipak, u nekim tradicionalnijim zajednicama, žene još uvijek pretežno obavljaju domaćinske i roditeljske zadatke, dok muškarci dominiraju u javnom i profesionalnom životu.</p>
+            <p>Briga za starije članove porodice (bake, deke, roditelje) u bošnjačkoj tradiciji zauzima posebno mjesto. Ova odgovornost se često prenosi na djecu, a u većini slučajeva, djeca nastoje da obezbede smještaj za svoje roditelje i starije članove porodice u starosti, što je odraz dubokog poštovanja prema starijim generacijama. Iako se u savremenom društvu javlja sve veći broj starijih osoba koji žive u staračkim domovima, porodična briga za starije članove i dalje je duboko ukorenjena u bošnjačkoj tradiciji.</p>
+            <p>Djeca se tradicionalno smatraju "blagoslovom" i veoma važnim članovima porodice. Odnos prema djeci je obeležen velikom pažnjom, ljubavlju i brigom, a roditelji se trude da im pruže najbolje uslove za rast i razvoj. Obrazovanje djece je veoma važno, a u mnogim porodicama se očekuje da djeca završe školu i postanu uspješna u životu, bilo u tradicionalnim ili savremenim profesijama. Zaključujemo da Bošnjačke porodice često funkcionišu kao veoma povezane zajednice, gdje međusobna podrška i solidarnost imaju važnu ulogu. Članovi porodice, čak i kada su razdvojeni fizički (kroz migracije ili preseljenja u gradove), često ostaju u kontaktu i podržavaju jedni druge, kako finansijski, tako i emotivno. Porodične veze su vrlo snažne, i mnoge porodice održavaju česte posete, porodična okupljanja, slave praznike i druge značajne trenutke zajedno.</p>
+        </div>
+        </div>
+      </div>
+
+      <!-- 19 -->
+      <section id="s19">
+        <h2>19. Amina Ademagić – Bošnjakinja čija djela afirmišu kulturu naroda kojem pripada</h2>
+        <img class="card-img" src="slika19.jpg" alt="">
+        <p class="excerpt">Savremena umjetnost i identitet.</p>
+        <button class="btn" data-open="m19">Više</button>
+      </section>
+      <div id="m19" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt19" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt19">Amina Ademagić — afirmacija kulture</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika19.jpg" alt="">
+            <span><i>Amina Ademagić bez naziva, Ulje na platnu. </i></span>
+            <p>Amina Ademagić je rođena u Rožajama 1979. godine. Osnovnu školu i Gimnaziju završila je u rodnom gradu. Učiteljski fakultet Univerziteta u Beogradu završila je 2009. godine u Novom Pazaru a akademske master studije 2012. godine u Beogradu.  Slikarsrvo je učila u ateljeu akademskog slikara Aldemara Ibrahimovića. Radi asocijativne pejzaže jarkih boja i smjelih kombinacija. Istražuje u formi i motivu ali je boja njeno osnovno izražajno sredstvo. Do sada je imala jednu samostalnu izložbu u Rožajama.  Amina živi i radi u rodnim Rožajama. </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 20 -->
+      <section id="s20">
+        <h2>20.	Deklaracija o vraćanju narodnog imena Bošnjak</h2>
+        <img class="card-img" src="slika20.jpg" alt="">
+        <p class="excerpt">Dekalarcija</p>
+        <button class="btn" data-open="m20">Više</button>
+      </section>
+      <div id="m20" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="mt20" aria-modal="true">
+          <div class="modal-header">
+            <h3 id="mt20">Deklaracija o vraćanju narodnog imena Bošnjak</h3>
+            <button class="modal-close" data-close>×</button>
+          </div>
+          <div class="modal-body">
+            <img src="slika20.jpg" alt="">
+            <span><i>Bošnjački bajrak – zastava </i></span>
+            <p>Učesnici skupa: “Muslimani/Bošnjaci - kako vam je ime?”, održanog u Podgorici, 22. marta 2003. godine, u organizaciji Foruma Muslimana/Bošnjaka Crne Gore i Udruženja “Almanah”, utvrdili su Deklaraciju: Muslimani iz svih država - bivših republika SFRJ, već su se opredijelili za vraćanje tradicionalnog narodnog imena - Bošnjak. Smatramo da je naziv Bošnjak historijski utemeljeno i adekvatno ime i za dio ovog naroda koji živi u Crnoj Gori. Nema ni jednog argumenta koji bi nas imenom odvojio od naroda kojem pripadamo i sa kojim smo vjekovima, pa i u svim bivšim zajedničkim državama, imali isto ime. Vjerujemo da Crna Gora ima dovoljno demokratskog kapaciteta da razumije i uvaži opredjeljenje za reafirmaciju narodnog imena - Bošnjak. </p>
+            <p>To podrazumijeva i obavezu stvaranja političkih i pravnih uslova za njegov adekvatan tretman pri predstojećem popisu stanovništva (...) DEKLARACIJU o imenu BOŠNJAK potpisali su sljedeći učesnici skupa: Abdić Abdulah - Bato, Adrović Hajriz, Adrović Salija, Adrović Mile – Belo, Adžimuhović Mirsad, Agović Bajro, Ajdarpašić Šato, Alihodžić Rifat, Azemović Zaim, Bajramspahić Hidajeta, Balić Sadrija, Baković Adnan, Balota Adis, Balota Aida, Bašić Husein, Bašić Maida, Bašić Ramiz, Bećović Isko, Begović Mevludin, Begić Senad, Binjoš Admir, Bralić Alija, Bralić Ramo, Cikotić Šukrija, Čirgić Omer, Ćeman Asmir, Čuturić Hasan, Dedeić Arslan, Delić Sabahudin, Demirović Idris, Dizdarević Asim, Drešević Nedžad, Duraković Kenan, Durumbašić Emil, Đečević Kemal, Džurlić Adem, Ećo Nusret, Feratović Rifat, Fetahović Ćazim, Fetahović Hamdija, Fetahović Jusuf, Fetić Adem, Franca Kemal, Hadrović Fahrudin, Hadrović Osman, Hadrović Safet -Vrbički, Hadžiablahović Sead, Hadžić Harun, Hadžić Hilmo, Hajdarpašić Rifat, Hajdarpašić Sahret, Hajdarpašić Tufo, Halilović Amer, Husić Ešef, Honsić Sabahudin, Hodžić Zuvdija, Ibrahimović Aldemar, Jasavić Adem, Jasavić Azra, Kajević Fehim, Kalač Iso, Kalač Halil, Kalač Hidajet, Kalač Orhan, Kalač Sabro, Kaljić Enver, Kasumović Fahrudin-Bedro, Kerović Atvija, Kerović Faruk, Kerović Igbala, Kočan Esad, Kočan Hamdo, Kočan Hajrudin, Korać Arslan - Avdo, Krnić Džavid, Kujević Ibiš, Kurpejović Ibrahim, Kurpejović Omer, Lekić Damir, Ljačević Selman, Luboder Salko, Ljuca Muzafer, Lješnanin Hakija, Ličina Amela, Ličina Anela, Ličina Emil, Ličina Zahit – Caka, Markišić Halil, Matović Alija, Medunjanin Ismet, Muminović Mehmed, Murić Elisa, Murić Velija, Murić Menduha, Musić Dževad, Mustafić Suljo, Nikočević Dževdet, Nikočević Rusmir, Nurković Alija, Nurković Amir, Nurković Mersada, Nurković Šefkija, Peričić Sadetin - Sado, Pućurica Iso, Purišić Dževad, Purišić Kemal, Radončić Ruždija, Ramović Haris, Ramović Hasan, Ramusović Amer, Rastoder Rifat, Rastoder Jasmina, Rastoder Mirsad, Rastoder Enita, Rastoder Melita, Rastoder Mirza, Rastoder Šerbo, Redžepagić Omer, Reković Ibrahim, Šabotić Šahin, Šabotić Sait, Šabović Džavid, Šabović Nizara, Šabović Husnija, Šahman Mulaz, Šahman Rasim, Šahmanović Orhan, Šarkinović Ferid, Šarkinović Hamdija, Šehović Bajram, Škrijelj Hasim, Sijarić Safer, Spahić Ervin, Toskić Kadro, Tutić Zećo, Tuzović Husein - Ceno, Zejnilović, Refik i Zekić Elvis. </p>
+        </div>
+        </div>
+      </div>
+
+    </main>
+
+   
+  </div>
+</div>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+      <h2>Sajt izradio:</h2>
+      <p>Iznijeti stavovi su isključivo odgovornost autora i/ili izdavača i nužno ne izražavaju stavove Fonda.</p>
+      <p>&copy; 2025 — Uticaj tradicije na savremeni život Bošnjaka u Crnoj Gori</p>
+    </div>
+  </footer>
+<script>
+/* Hamburger meni */
+document.getElementById('menuToggle').addEventListener('click', ()=>{
+  document.getElementById('mainMenu').classList.toggle('open');
+});
+
+/* Otvaranje/Zatvaranje modala (pojedinačni u HTML-u) */
+document.querySelectorAll('[data-open]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const id = btn.getAttribute('data-open');
+    const modal = document.getElementById(id);
+    if(modal){ modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); }
+  });
+});
+document.querySelectorAll('[data-close]').forEach(btn=>{
+  btn.addEventListener('click', ()=> {
+    const modal = btn.closest('.modal');
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+  });
+});
+window.addEventListener('click', (e)=>{
+  if(e.target.classList.contains('modal')){
+    e.target.classList.remove('open');
+    e.target.setAttribute('aria-hidden','true');
+  }
+});
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape'){
+    document.querySelectorAll('.modal.open').forEach(m=>{
+      m.classList.remove('open'); m.setAttribute('aria-hidden','true');
+    });
+  }
+});
+
+/* Sekcije fade-in pri skrolu */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(ent=>{ if(ent.isIntersecting){ ent.target.classList.add('visible'); io.unobserve(ent.target); }});
+},{threshold:.15});
+document.querySelectorAll('section').forEach(s=>io.observe(s));
+
+/* Anchor scroll offset (sticky nav) */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', function(e){
+    const href = this.getAttribute('href'); if(!href || href==="#") return;
+    const el = document.querySelector(href);
+    if(el){
+      e.preventDefault();
+      const navH = document.querySelector('nav').offsetHeight;
+      const top = el.getBoundingClientRect().top + window.scrollY - navH - 8;
+      window.scrollTo({top, behavior:'smooth'});
+    }
+  });
+});
+</script>
+</body>
+</html>
